@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
+    [SerializeField] public GameManager gameManager;
     [SerializeField] TextMeshProUGUI timerText;
-    float elapsedTime;
+    [SerializeField] float elapsedTime;
 
-    void Update()
+    private void Update()
     {
         elapsedTime += Time.deltaTime;
         int minutes = Mathf.FloorToInt(elapsedTime / 60);
