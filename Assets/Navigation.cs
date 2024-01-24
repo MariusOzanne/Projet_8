@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,15 +6,18 @@ public class Navigation : MonoBehaviour
 {
     [SerializeField] GameObject map;
     [SerializeField] GameObject ball;
-    [SerializeField] GameObject emptyObject;
-    GameObject currentTarget;
-    GameObject previousTarget;
+    [SerializeField] GameObject startPoint;
+    [SerializeField] float timeUntilRetreival = 30.0f;
+    Vector3 currentTargetPosition;
+
+    float lastRetreval;
 
     Rigidbody rb;
     NavMeshAgent agent;
 
     float distanceToTarget;
-    bool ontarget;
+    bool chasingBall;
+    bool carryingBall;
 
     // Start is called before the first frame update
     void Start()
@@ -23,53 +25,110 @@ public class Navigation : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         GenerateRandomDestinationOnMap();
-        emptyObject = new GameObject();
     }
 
     // Update is called once per frame
     void Update()
     {
         // get a floating value of the distance between the target and the object
-        distanceToTarget = Vector3.Dot(transform.position, currentTarget.transform.position);
+        DistanceToTargetWithVector2(currentTargetPosition, transform.position);
         if (distanceToTarget > 0)
         {
-            MoveToTarget(currentTarget);
+            MoveToTarget(currentTargetPosition);
         }
-        else if (distanceToTarget <= 0)
+        else if (distanceToTarget <= 0 && !chasingBall)
         {
-            Debug.Log(distanceToTarget);
-            if (currentTarget != null)
+            // checks if the object is reseting the ball to its original position
+            if (carryingBall)
             {
-                
-                // Destroy the specified GameObject
-                previousTarget = currentTarget;
-                GenerateRandomDestinationOnMap();
-                Destroy(previousTarget);
+                freeBall(ball);
+                // reset the duration of the last retrieval
+                lastRetreval = Time.time;
+            }
+            //check if the last retrieval is greater than n seconds, 
+            if (Time.time - lastRetreval >= timeUntilRetreival)
+            {
+                // chase the ball and set chasingBall to true
+                currentTargetPosition = ball.transform.position;
+                chasingBall = true;
             }
             else
             {
-                Debug.LogWarning("Object to delete is null.");
+                GenerateRandomDestinationOnMap();
             }
+
+
+        }
+        else if (distanceToTarget <= 0 && chasingBall)
+        {
+            CarryBall(ball);
+            currentTargetPosition = startPoint.transform.position;
+            chasingBall = false;
+            carryingBall = true;
         }
     }
+
     // generate a random point on the map
     void GenerateRandomDestinationOnMap()
     {
-        Vector3 randomLocation = new Vector3(Random.Range(0, map.transform.lossyScale.x),
-                                             Random.Range(0, map.transform.lossyScale.y),
-                                             Random.Range(0, map.transform.lossyScale.z));
-        currentTarget = Instantiate(emptyObject, randomLocation, Quaternion.identity);
+        
+        float randomXPosition = Random.Range(-map.transform.localScale.x / 2, map.transform.localScale.x / 2);
+        float randomZPosition = Random.Range(-map.transform.localScale.z / 2, map.transform.localScale.z / 2);
+
+        Vector3 randomLocation = new Vector3(map.transform.position.x + randomXPosition,
+                                             map.transform.position.y,
+                                             map.transform.position.z + randomZPosition);
+        currentTargetPosition = randomLocation;
+
+        carryingBall = false;
     }
+
     // Move the agent to the targeted position
-    void MoveToTarget(GameObject target)
+    void MoveToTarget(Vector3 targetPosition)
     {
-        agent.SetDestination(target.transform.position);
+        agent.SetDestination(targetPosition);
     }
 
-    Vector2 Get2DObjectDistanceToTarget(Vector3 origin, Vector3 target)
+    void DistanceToTargetWithVector2(Vector3 targetPosition, Vector3 objectPosition)
     {
-        return new Vector2 (0,0);
+        // find the distance between two Vector3, regardless of the Y axis
+        distanceToTarget = Vector2.Distance(new Vector2(targetPosition.x, targetPosition.z),
+                                            new Vector2(objectPosition.x, objectPosition.z));
     }
 
+    void CarryBall(GameObject target)
+    {
+        if (target != null && gameObject != null)
+        {
+            target.GetComponent<Collider>().enabled = false;
+            target.GetComponent<Rigidbody>().useGravity = false;
+            target.transform.SetParent(transform);
+            if (target.transform.position.y <= 6f )
+            {
+                target.transform.position.Set(target.transform.position.x,
+                                              target.transform.position.y + 0.2f,
+                                              target.transform.position.z);
+            }
+        }
+        else
+        {
+            Debug.LogError("Make sure both GameObjects exist");
+        }
 
+    }
+
+    void freeBall(GameObject target)
+    {
+        // check if the target exists
+        if (target != null)
+        {
+            target.GetComponent<SphereCollider>().enabled = true;
+            target.GetComponent<Rigidbody>().useGravity = true;
+            target.transform.SetParent(null);
+        }
+        else
+        {
+            Debug.LogError("target does not exist");
+        }
+    }
 }
