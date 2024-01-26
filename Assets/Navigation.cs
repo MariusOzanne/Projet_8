@@ -28,7 +28,7 @@ public class Navigation : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // get a floating value of the distance between the target and the object
         DistanceToTargetWithVector2(currentTargetPosition, transform.position);

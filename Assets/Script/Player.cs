@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
     private void Rotate()
     {
         if (myType == PlayerType.player1 && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
-            transform.Rotate(transform.eulerAngles, horizontalAxis * rotationSpeed * Time.deltaTime);
+            transform.Rotate(transform.up, horizontalAxis * rotationSpeed * Time.deltaTime);
         if (myType == PlayerType.player2 && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)))
             transform.Rotate(transform.eulerAngles, horizontalAxis * rotationSpeed * Time.deltaTime);
     }
