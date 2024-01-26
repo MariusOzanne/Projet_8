@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - GoalBlue
-  - GoalRed
+  - GoalOrange
+  - Ball
   layers:
   - Default
   - TransparentFX

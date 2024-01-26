@@ -6,7 +6,9 @@ using System;
 
 public class Countdown : MonoBehaviour
 {
+    [SerializeField] public GameManager gameManager;
     [SerializeField] TextMeshProUGUI countdownText;
+    [SerializeField] TextMeshProUGUI timeEndText;
     [SerializeField] float remainingTime;
     void Update()
     {
@@ -26,5 +28,14 @@ public class Countdown : MonoBehaviour
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         countdownText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+        if (remainingTime <= 1)
+        {
+            if (gameManager != null)
+            {
+                timeEndText.gameObject.SetActive(true);
+                gameManager.RelancerScene();
+            }
+        }
     }
 }
