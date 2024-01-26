@@ -37,7 +37,8 @@ public class Player : MonoBehaviour
 
     public void Awake()
     {
-        Rigidbody ballRigidbody = ball.GetComponent<Rigidbody>();
+        ballRigidbody = ball.GetComponent<Rigidbody>();
+        //Debug.Log(ballRigidbody);
         if (ballRigidbody != null)
         {
             // Ball Rigidbody
@@ -68,6 +69,7 @@ public class Player : MonoBehaviour
     {
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");
+        Debug.Log(ballRigidbody);
         Move();
         Rotate();
         useStamina();
@@ -85,7 +87,7 @@ public class Player : MonoBehaviour
         if (myType == PlayerType.player2 && (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)))
             rb.AddForce(transform.forward * verticalAxis * speed * Time.deltaTime);
         // Vérifiez la touche spécifique pour le coup de pied
-        Debug.Log(ballRigidbody);
+        //Debug.Log(ballRigidbody);
         if ((myType == PlayerType.player1 && Input.GetKeyDown(KeyCode.E)) ||
             (myType == PlayerType.player2 && Input.GetKeyDown(KeyCode.Return)))
         {
