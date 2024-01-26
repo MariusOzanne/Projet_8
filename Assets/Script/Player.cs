@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] public StaminaWheel staminaWheel;
     [SerializeField] public GameManager gameManager;
     [SerializeField] private GameObject ball;
+    [SerializeField] private GameObject Camera;
     [SerializeField] public float speed;
     [SerializeField] public float maxSpeed;
     [SerializeField] float rotationSpeed;
@@ -21,6 +22,8 @@ public class Player : MonoBehaviour
     [SerializeField] public float speedDeceleration = 3;
 
     [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float maxFOV= 60f;
+    [SerializeField] private float minFOV= 60f;
     [SerializeField] public float speedAcceleration = 1f;
     [SerializeField] public enum PlayerType{ player1, player2};
 
@@ -131,6 +134,10 @@ public class Player : MonoBehaviour
                     stamina -= 30 * Time.deltaTime;
                     // Limitez la vitesse à maxSpeed
                     speed = Mathf.Clamp(speed, 0f, maxSpeed);
+                    if(Camera.GetComponent<Camera>().fieldOfView >= minFOV)
+                    {
+                        Camera.GetComponent<Camera>().fieldOfView -= 0.25f;
+                    }
                 }
             }
             else
@@ -141,6 +148,11 @@ public class Player : MonoBehaviour
                 if (stamina < maxStamina)
                 {
                     stamina += 30 * Time.deltaTime;
+                }
+
+                if (Camera.GetComponent<Camera>().fieldOfView <= maxFOV)
+                {
+                    Camera.GetComponent<Camera>().fieldOfView += 0.25f;
                 }
             }
         }

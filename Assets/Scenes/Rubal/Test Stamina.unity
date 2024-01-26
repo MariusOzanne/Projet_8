@@ -550,11 +550,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 359923582558929957, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 46c2fcb6a3aad9046a7838cf7ba5ff77, type: 2}
     - target: {fileID: 4394580757963551659, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
         type: 3}
       propertyPath: ball
@@ -563,12 +558,22 @@ PrefabInstance:
     - target: {fileID: 4394580757963551659, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
         type: 3}
       propertyPath: speed
-      value: 750
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394580757963551659, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
+        type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 1491588833}
+    - target: {fileID: 4394580757963551659, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
+        type: 3}
+      propertyPath: minFOV
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4394580757963551659, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
         type: 3}
       propertyPath: maxSpeed
-      value: 1500
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 4394580757963551659, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
         type: 3}
@@ -582,19 +587,14 @@ PrefabInstance:
       objectReference: {fileID: 8546398949773686861}
     - target: {fileID: 4394580757963551659, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
         type: 3}
-      propertyPath: staminaWheel
-      value: 
-      objectReference: {fileID: 1582309106}
-    - target: {fileID: 4394580757963551659, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
-        type: 3}
-      propertyPath: isTouchingBall
+      propertyPath: playerNumber
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4394580757963551659, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
         type: 3}
-      propertyPath: detectionRadius
-      value: 2000
-      objectReference: {fileID: 0}
+      propertyPath: staminaWheel
+      value: 
+      objectReference: {fileID: 1582309106}
     - target: {fileID: 4394580757963551659, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
         type: 3}
       propertyPath: speedAcceleration
@@ -604,11 +604,6 @@ PrefabInstance:
         type: 3}
       propertyPath: speedDeceleration
       value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 6563616613831078603, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
-        type: 3}
-      propertyPath: field of view
-      value: 85
       objectReference: {fileID: 0}
     - target: {fileID: 7133837460553408549, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
         type: 3}
@@ -660,25 +655,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7424884142325021160, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 7424884142325021160, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7424884142325021160, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.35
-      objectReference: {fileID: 0}
     - target: {fileID: 8884523177623611414, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
         type: 3}
       propertyPath: m_Name
-      value: Player 1
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3315,6 +3295,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1905282206}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1475047339 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6903199472776047068, guid: 780c28f3d83e5334fa2367e1f859f079,
+    type: 3}
+  m_PrefabInstance: {fileID: 1905282206}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1491588833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1699159734890796806, guid: 9539bc2865f5d8f4f9ecdf10dab17b4d,
+    type: 3}
+  m_PrefabInstance: {fileID: 231508667}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1504383140
 GameObject:
   m_ObjectHideFlags: 0
@@ -4213,7 +4205,17 @@ PrefabInstance:
     - target: {fileID: 6163051806984666613, guid: 780c28f3d83e5334fa2367e1f859f079,
         type: 3}
       propertyPath: speed
-      value: 750
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163051806984666613, guid: 780c28f3d83e5334fa2367e1f859f079,
+        type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 1475047339}
+    - target: {fileID: 6163051806984666613, guid: 780c28f3d83e5334fa2367e1f859f079,
+        type: 3}
+      propertyPath: minFOV
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 6163051806984666613, guid: 780c28f3d83e5334fa2367e1f859f079,
         type: 3}
@@ -4223,7 +4225,7 @@ PrefabInstance:
     - target: {fileID: 6163051806984666613, guid: 780c28f3d83e5334fa2367e1f859f079,
         type: 3}
       propertyPath: maxSpeed
-      value: 1500
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 6163051806984666613, guid: 780c28f3d83e5334fa2367e1f859f079,
         type: 3}
@@ -4253,7 +4255,7 @@ PrefabInstance:
     - target: {fileID: 6163051806984666613, guid: 780c28f3d83e5334fa2367e1f859f079,
         type: 3}
       propertyPath: detectionRadius
-      value: 2000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6163051806984666613, guid: 780c28f3d83e5334fa2367e1f859f079,
         type: 3}
